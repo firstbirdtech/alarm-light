@@ -1,6 +1,7 @@
 var WebSocketClient = require('websocket').client;
 var log = require('winston');
 var client = new WebSocketClient();
+var config = require('config');
 
 log.add(log.transports.File, { filename: 'logs/ws_client.log' });
 
@@ -45,4 +46,8 @@ client.on('connect', function(connection) {
     sendNumber();
 });
 
-client.connect('ws://localhost:8080/', 'echo-protocol');
+var wsConfig = config.get('websocket');
+
+console.log(wsConfig);
+
+client.connect(wsConfig.server, 'echo-protocol');
