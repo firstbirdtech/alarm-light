@@ -1,6 +1,5 @@
 package sample.camel;
 
-import com.pi4j.io.gpio.Pin;
 import com.pi4j.io.gpio.RaspiPin;
 import de.pi3g.pi.rcswitch.RCSwitch;
 import org.springframework.stereotype.Component;
@@ -22,7 +21,7 @@ public class PITransformBean {
             BitSet address = RCSwitch.getSwitchGroupAddress(ADDRESS_A);
             this.rcSwitch = new RCSwitch(RaspiPin.GPIO_00);
             rcSwitch.switchOn(address, ON_CODE_A);
-            Thread.sleep(20000);
+            Thread.sleep(20000); // let it run for 20 seconds
             rcSwitch.switchOff(address, OFF_CODE_A);
 
         }
