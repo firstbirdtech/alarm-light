@@ -144,3 +144,5 @@ hs_err_pid*
 
 .idea/
 test.sh
+/camel/alarm-lighter.iml
+/camel/alarm-light.iml

@@ -30,7 +30,8 @@ public class WebsocketListener extends RouteBuilder {
 
     @Override
     public void configure() throws Exception {
-        from("websocket://localhost:8080/")
-                .log(LoggingLevel.INFO, "Response ${body}");
+        from("websocket://localhost:8080/") // change this to be a client
+                .log(LoggingLevel.INFO, "Response ${body}")
+                .bean(new PITransformBean("${body}"),"sendSignal");
     }
 }
