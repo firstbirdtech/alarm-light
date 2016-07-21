@@ -23,3 +23,17 @@ Now you can start a client with
 ```
 npm ws_client.js
 ```
+
+#Pi Codes
+
+Raspberry Pi 433mhz
+
+Different GPIO numbering in WiringPi
+https://projects.drogon.net/raspberry-pi/wiringpi/pins/
+
+Frequencies
+A on = 1361
+A off = 1364
+
+B on = 4433
+B off = 4436

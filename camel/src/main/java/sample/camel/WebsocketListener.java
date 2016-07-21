@@ -30,8 +30,22 @@ public class WebsocketListener extends RouteBuilder {
 
     @Override
     public void configure() throws Exception {
-        from("websocket://localhost:8080/") // change this to be a client
-                .log(LoggingLevel.INFO, "Response ${body}")
-                .bean(new PITransformBean("${body}"),"sendSignal");
+        from("ahc-ws://localhost:8080/") // change this to be a client
+                .log(LoggingLevel.INFO, "Server says: ${body}")
+                .bean(new PITransformBean(),"sendSignal");
+
+
+        from("websocket://localhost:8080/")
+                .log(">>> Message received from WebSocket Client : ${body}")
+                .transform().simple("${body}")
+                // send back to the client, by sending the message to the same endpoint
+                // this is needed as by default messages is InOnly
+                // and we will by default send back to the current client using the provided connection key
+                .to("websocket://localhost:8080/");
+
+        from("timer:hello?period={{timer.period}}")
+                .transform(method("myBean", "saySomething"))
+                .log(LoggingLevel.INFO, "Body: ${body}")
+                .to("websocket://localhost:8080/?sendToAll=true");
     }
 }
